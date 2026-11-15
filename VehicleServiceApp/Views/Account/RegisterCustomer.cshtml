@@ -1,0 +1,52 @@
+﻿@model VehicleServiceApp.Models.CustomerCls
+@{
+    ViewData["Title"] = "Customer Registration";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3>Customer Registration</h3>
+                </div>
+                @if (ViewBag.Msg != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> @ViewBag.Msg
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                <div class="card-body">
+                    <form asp-action="RegisterCustomer" method="post">
+                        <div class="mb-3">
+                            <label>Full Name</label>
+                            <input asp-for="Customer_Name" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input asp-for="Customer_Email" type="email" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Phone</label>
+                            <input asp-for="Customer_Phone" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Address</label>
+                            <textarea asp-for="Customer_Address" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label>Username</label>
+                            <input asp-for="Username" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input asp-for="Password" type="password" class="form-control" required />
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

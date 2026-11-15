@@ -1,0 +1,50 @@
+﻿@model VehicleServiceApp.Models.AdminCls
+@{
+    ViewData["Title"] = "Admin Registration";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h3>Admin Registration</h3>
+                </div>
+                <div class="card-body">
+                    @if (TempData["msg"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["msg"]</div>
+                    }
+
+                    <form asp-action="RegisterAdmin" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input asp-for="Admin_Name" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input asp-for="Admin_Email" type="email" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input asp-for="Admin_Phone" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input asp-for="Username" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" required />
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100">Register Admin</button>
+                    </form>
+
+                    <div class="mt-3 text-center">
+                        <p>Already have an account? <a asp-action="Login">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

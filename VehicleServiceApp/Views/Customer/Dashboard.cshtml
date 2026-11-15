@@ -1,0 +1,116 @@
+﻿@model System.Data.DataTable
+@using System.Data
+@{
+    ViewData["Title"] = "Customer Dashboard - Vehicle Service Portal";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <!-- Hero Banner -->
+    <div class="p-5 mb-4 bg-success text-white rounded-3 shadow-sm">
+        <div class="row align-items-center">
+            <div class="col-md-7 col-lg-8">
+            <h1 class="display-5 fw-bold">AUTONEXA</h1>
+            <h4 class=" fw-bold">Your Car..Our Care...</h4>
+            <p class="col-md-8 fs-4">Book on-demand vehicle servicing, request emergency rescue, register your vehicles, and track your service history effortlessly.</p>
+            <div class="mt-3">
+                <a asp-action="RegisterVehicle" class="btn btn-light btn-lg text-success fw-bold me-2">
+                    <i class="bi bi-car-front"></i> Register Vehicle
+                </a>
+                <a asp-action="ServiceHistory" class="btn btn-outline-light btn-lg me-2">
+                    <i class="bi bi-clock-history"></i> Service History
+                </a>
+                <a asp-action="GiveFeedback" class="btn btn-outline-light btn-lg me-2">
+                    <i class="bi bi-star"></i> Give Feedback
+                </a>
+            </div>
+        </div>
+            <div class="col-md-5 col-lg-4 text-center mt-4 mt-md-0">
+                <img src="~/images/car.png" alt="Vehicle Service" class="img-fluid rounded-circle shadow-sm bg-white p-2" style="width: 180px; height: 180px; object-fit: cover;" />
+            </div>
+    </div>
+    </div>
+
+    <!-- Available Services & Search Section -->
+  
+
+    <div class="card shadow-sm border-0 mb-5">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center flex-wrap">
+            <h4 class="fw-bold text-success m-0"><i class="bi bi-tools"></i> Available Services</h4>
+
+            <!-- Live Search Feature Input -->
+            <div class="input-group w-auto mt-2 mt-md-0" style="min-width: 280px;">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search"></i></span>
+                <input type="text" id="serviceSearchInput" class="form-control border-start-0" placeholder="Search for a service..." onkeyup="filterServices()">
+            </div>
+        </div>
+        <div class="card-body">
+            @if (Model != null && Model.Rows.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle" id="servicesTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Service Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th class="text-end"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    <td class="fw-bold">@row["Service_Name"]</td>
+                                    <td class="text-muted">@row["Service_Desc"]</td>
+                                    <td class="fw-bold text-success">₹@row["Service_Price"]</td>
+                                    <td class="text-end">
+                                        <a asp-action="BookService" asp-route-sId="@row["Service_Id"]" class="btn btn-sm btn-success px-3">
+                                            Book Now
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4 text-muted">
+                    <p class="fs-5">No services are currently available. Please check back later!</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<!-- JavaScript for Live Search Filter -->
+@section Scripts {
+    <script>
+        
+        function filterServices() {
+            let input = document.getElementById("serviceSearchInput");
+            if (!input) return;
+
+            let filter = input.value.toLowerCase().trim();
+            let table = document.getElementById("servicesTable");
+            if (!table) return;
+
+            let tbody = table.getElementsByTagName("tbody")[0];
+            if (!tbody) return;
+
+            let rows = tbody.getElementsByTagName("tr");
+
+            for (let i = 0; i < rows.length; i++) {
+                let rowText = rows[i].textContent || rows[i].innerText;
+                if (rowText.toLowerCase().indexOf(filter) > -1) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+}

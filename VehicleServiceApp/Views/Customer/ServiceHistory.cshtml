@@ -1,0 +1,83 @@
+﻿@model System.Data.DataTable
+@using System.Data
+@{
+    ViewData["Title"] = "Service History - Autonexa";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-success"><i class="bi bi-clock-history"></i> My Service History</h3>
+        <a asp-action="Dashboard" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["msg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            @if (Model != null && Model.Rows.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Vehicle</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>Booking Date</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    <td>#@row[0]</td>
+                                    <td>@row[1]</td>
+                                    <td>@row[2]</td>
+                                    <td>
+                                        @if (row[3].ToString() == "Cancelled")
+                                        {
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        }
+                                        else if (row[3].ToString() == "Completed")
+                                        {
+                                            <span class="badge bg-success">Completed</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">@row[3]</span>
+                                        }
+                                    </td>
+                                    <td>@Convert.ToDateTime(row[4]).ToString("dd-MMM-yyyy")</td>
+                                    <td class="text-end">
+                                        @* Allow cancellation only if it's not already cancelled or completed *@
+                                        @if (row[3].ToString() != "Cancelled" && row[3].ToString() != "Completed")
+                                        {
+                                            <a asp-action="CancelBooking" asp-route-bId="@row[0]" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to cancel this booking?');">
+                                                <i class="bi bi-x-circle"></i> Cancel
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4 text-muted">
+                    <p class="fs-5">No service bookings found.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

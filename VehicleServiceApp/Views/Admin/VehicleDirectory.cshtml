@@ -1,0 +1,62 @@
+﻿@model System.Data.DataTable
+@using System.Data
+@{
+    ViewData["Title"] = "Vehicle Directory - Autonexa Admin";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-success"><i class="bi bi-car-front"></i> Registered Vehicles Directory</h3>
+        <a asp-action="AdminDashboard" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info alert-dismissible fade show shadow-sm" role="alert">
+            @TempData["msg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            @if (Model != null && Model.Rows.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                @* <th>Vehicle ID</th> *@
+                                <th>Owner Name</th>
+                                <th>Vehicle Brand / Model</th>
+                                <th>Registration Number</th>
+                                <th>Fuel Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                   @*  <td>#@row[0]</td> *@
+                                    <td>@row[1]</td> @* Owner Name from RegisterTable *@
+                                    <td>@row[2]</td> @* Brand / Model *@
+                                    <td>@row[3]</td> @* Reg Number *@
+                                    <td>@row[4]</td> @* Fuel Type *@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4 text-muted">
+                    <p class="fs-5">No registered vehicles found in the system.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

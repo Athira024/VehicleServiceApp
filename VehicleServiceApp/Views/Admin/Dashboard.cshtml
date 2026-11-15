@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard - Vehicle Service Portal";
+    Layout = "_Layout"; 
+}
+
+<div class="container py-5">
+    <!-- Header Banner -->
+    <div class="p-5 mb-4 bg-primary text-white rounded-3 shadow-sm">
+        <div class="row align-items-center">
+            <div class="col-md-7 col-lg-8">
+            <h1 class="display-5 fw-bold">AUTONEXA – Admin Control Center</h1>
+            <p class="col-md-8 fs-4">Monitor and control all AUTONEXA services from one centralized dashboard to ensure smooth and efficient management.</p>
+        </div>
+        <div class="col-md-5 col-lg-4 text-center mt-4 mt-md-0">
+            <img src="~/images/car.png" alt="Vehicle Service" class="img-fluid rounded-circle shadow-sm bg-white p-2" style="width: 180px; height: 180px; object-fit: cover;" />
+        </div>
+    </div>
+  
+
+    <!-- Management Cards Grid -->
+    <div class="row g-4">
+        <!-- 1. Add / Edit Services -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold text-primary">Add New Service</h5>
+                    <p class="card-text text-muted">Create new service offerings or edit existing vehicle service packages.</p>
+                    <div class="mt-auto">
+                        <a asp-action="AddService" class="btn btn-outline-primary w-100">Manage Services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- 2. Manage & Edit Services -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold text-success"><i class="bi bi-gear-fill"></i> Manage Services</h5>
+                        <p class="card-text text-muted">View the complete list of available services, update pricing, or edit details.</p>
+                        <div class="mt-auto">
+                            <a asp-action="ManageServices" class="btn btn-outline-success w-100">Manage / Edit Services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- 2. View Customer Bookings & Status -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold text-success">Customer Bookings</h5>
+                    <p class="card-text text-muted">Monitor incoming service requests, emergency rescue dispatches, and track job statuses.</p>
+                    <div class="mt-auto">
+                        <a asp-action="ViewBookings" class="btn btn-outline-success w-100">View Bookings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Customer Directory -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold text-info">Customer Directory</h5>
+                    <p class="card-text text-muted">Browse registered user accounts, contact details, addresses, and profile information.</p>
+                    <div class="mt-auto">
+                        <a asp-action="CustomerDirectory" class="btn btn-outline-info w-100">Customer List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Vehicle Directory -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold text-warning">Vehicle Directory</h5>
+                    <p class="card-text text-muted">Inspect registered vehicles linked to customer accounts for tracking and service history.</p>
+                    <div class="mt-auto">
+                        <a asp-action="VehicleDirectory" class="btn btn-outline-warning w-100">Vehicle List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Feedback Management -->
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold text-secondary">Feedback Management</h5>
+                    <p class="card-text text-muted">Review feedback ratings and comments submitted by customers after completed services.</p>
+                    <div class="mt-auto">
+                        <a asp-action="ViewFeedback" class="btn btn-outline-secondary w-100">View Feedback</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

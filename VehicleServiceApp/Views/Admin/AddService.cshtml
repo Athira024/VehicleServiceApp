@@ -1,0 +1,29 @@
+﻿@model VehicleServiceApp.Models.ServiceCls
+@{
+    ViewData["Title"] = "Add Service";
+}
+
+<div class="container mt-4">
+    <h2>Manage Services - Add New Service</h2>
+    <hr />
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success">@TempData["msg"]</div>
+    }
+
+    <form asp-action="AddService" method="post" class="col-md-6">
+        <div class="mb-3">
+            <label>Service Name</label>
+            <input asp-for="Service_Name" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Description</label>
+            <textarea asp-for="Service_Desc" class="form-control" rows="3" placeholder="Enter service details..." required></textarea>
+        </div>
+        <div class="mb-3">
+            <label>Price (₹)</label>
+            <input asp-for="Service_Price" type="number" step="0.01" class="form-control" required />
+        </div> 
+        <button type="submit" class="btn btn-dark">Add Service</button>
+    </form>
+</div>

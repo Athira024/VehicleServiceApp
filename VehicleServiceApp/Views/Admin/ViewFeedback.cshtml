@@ -1,0 +1,80 @@
+﻿@model System.Data.DataTable
+@using System.Data
+@{
+    ViewData["Title"] = "Customer Feedback Management - Autonexa Admin";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-success"><i class="bi bi-chat-left-text"></i> Customer Feedback & Queries</h3>
+        <a asp-action="Dashboard" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i> @TempData["msg"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            @if (Model != null && Model.Rows.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Feedback</th>
+                                <th>Date</th>
+                                <th>Current Reply</th>
+                                <th>Action / Reply</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    <td>@row["Customer_Id"]</td>
+                                    <td>@row["Feedback"]</td>
+                                    <td>@Convert.ToDateTime(row["F_Date"]).ToString("dd-MMM-yyyy")</td>
+                                    <td>
+                                        @if (row["Reply"] != DBNull.Value && !string.IsNullOrEmpty(row["Reply"].ToString()))
+                                        {
+                                            <span class="text-success">@row["Reply"]</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted fst-italic">Pending Reply</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <!-- Inline form for admin to submit a reply -->
+                                        <form asp-action="ReplyFeedback" method="post" class="d-flex gap-2">
+                                            <input type="hidden" name="feedbackId" value="@row["Feedback_Id"]" />
+                                            <input type="text" name="reply" class="form-control form-control-sm" placeholder="Type reply..." required />
+                                            <button type="submit" class="btn btn-sm btn-success text-nowrap">
+                                                <i class="bi bi-send"></i> Send
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-4 text-muted">
+                    <p class="fs-5">No customer feedback found in the system.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

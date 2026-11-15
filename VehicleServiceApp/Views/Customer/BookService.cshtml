@@ -1,0 +1,32 @@
+﻿@model VehicleServiceApp.Models.BookingCls
+@{
+    ViewData["Title"] = "Book Service";
+}
+
+<div class="container mt-4">
+    <h2>Book Service / Emergency Rescue</h2>
+    <hr />
+
+    <form asp-action="BookService" method="post" class="col-md-6">
+        <input type="hidden" asp-for="Service_Id" value="@ViewBag.ServiceId" />
+
+        <div class="mb-3">
+            <label>Vehicle ID</label>
+            <input asp-for="Vehicle_Id" class="form-control" placeholder="Enter your registered Vehicle ID" required />
+        </div>
+        <div class="mb-3">
+            <label>Service Date</label>
+            <input asp-for="Service_Date" type="date" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Service Mode</label>
+            <select asp-for="Service_Mode" class="form-control" required>
+                <option value="">-- Select Mode --</option>
+                <option value="Home Pickup">Home Pickup</option>
+                <option value="Showroom Drop">Showroom Drop</option>
+                <option value="Emergency Rescue">Emergency Rescue</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+</div>

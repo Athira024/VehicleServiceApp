@@ -1,0 +1,21 @@
+﻿@model VehicleServiceApp.Models.FeedbackCls
+@{
+    ViewData["Title"] = "Give Feedback";
+}
+
+<div class="container mt-4">
+    <h2>Submit Feedback</h2>
+    <hr />
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success">@TempData["msg"]</div>
+    }
+
+    <form asp-action="GiveFeedback" method="post" class="col-md-6">
+        <div class="mb-3">
+            <label>Your Comments / Review</label>
+            <textarea asp-for="Feedback" class="form-control" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+    </form>
+</div>

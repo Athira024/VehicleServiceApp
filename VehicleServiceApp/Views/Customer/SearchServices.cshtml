@@ -1,0 +1,36 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Available Services";
+}
+<table class="table table-striped table-bordered mt-3">
+    <thead class="table-dark">
+        <tr>
+            <th>Service ID</th>
+            <th>Service Name</th>
+            <th>Price (₹)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Rows.Count > 0)
+        {
+            foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr>
+                    <td>@row["S_Id"]</td>
+                    <td>@row["S_Name"]</td>
+                    <td>₹@row["Price"]</td>
+                    <td>
+                        <a asp-action="BookService" asp-route-sId="@row["S_Id"]" class="btn btn-sm btn-success">Book Now</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No services available.</td>
+            </tr>
+        }
+    </tbody>
+</table>

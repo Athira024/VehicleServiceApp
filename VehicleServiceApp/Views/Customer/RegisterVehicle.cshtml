@@ -1,0 +1,33 @@
+﻿@model VehicleServiceApp.Models.VehicleCls
+@{
+    ViewData["Title"] = "Register Vehicle";
+}
+
+<div class="container mt-4">
+    <h2>Register Your Vehicle</h2>
+    <hr />
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info">@TempData["msg"]</div>
+    }
+
+    <form asp-action="RegisterVehicle" method="post" class="col-md-6">
+        <div class="mb-3">
+            <label>Brand</label>
+            <input asp-for="Brand" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Model</label>
+            <input asp-for="Model" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Fuel Type</label>
+            <input asp-for="FuelType" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label>Registration Number</label>
+            <input asp-for="RegNumber" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Save Vehicle</button>
+    </form>
+</div>
